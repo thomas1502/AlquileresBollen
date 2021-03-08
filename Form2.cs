@@ -12,7 +12,7 @@ namespace AlquileresBollen
         // Funciones propias
         private void GuardarVehiculo()
         {
-            FileStream stream = new FileStream("Vehiculos.txt", FileMode.Append, FileAccess.Write);
+            FileStream stream = new FileStream("Vehiculos.txt", FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter writer = new StreamWriter(stream);
 
             foreach (var p in vehiculos)
