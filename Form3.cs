@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace AlquileresBollen
 {
-    public partial class Form1 : Form
+    public partial class Form3 : Form
     {
-        public Form1()
+        public Form3()
         {
             InitializeComponent();
-        }
-
-        private void registroVehículosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form2 f = new Form2();
-            f.Show();
         }
     }
 }

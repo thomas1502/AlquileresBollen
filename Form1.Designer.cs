@@ -66,6 +66,7 @@ namespace AlquileresBollen
             this.registroVehículosToolStripMenuItem.Name = "registroVehículosToolStripMenuItem";
             this.registroVehículosToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.registroVehículosToolStripMenuItem.Text = "Registro Vehículo";
+            this.registroVehículosToolStripMenuItem.Click += new System.EventHandler(this.registroVehículosToolStripMenuItem_Click);
             // 
             // registroAlquilerToolStripMenuItem
             // 
