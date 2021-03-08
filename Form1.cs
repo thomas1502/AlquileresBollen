@@ -22,5 +22,17 @@ namespace AlquileresBollen
             Form2 f = new Form2();
             f.Show();
         }
+
+        private void registroAlquilerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 f = new Form3();
+            f.Show();
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 f = new Form4();
+            f.Show();
+        }
     }
 }

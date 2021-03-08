@@ -73,12 +73,14 @@ namespace AlquileresBollen
             this.registroAlquilerToolStripMenuItem.Name = "registroAlquilerToolStripMenuItem";
             this.registroAlquilerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.registroAlquilerToolStripMenuItem.Text = "Registro Alquiler";
+            this.registroAlquilerToolStripMenuItem.Click += new System.EventHandler(this.registroAlquilerToolStripMenuItem_Click);
             // 
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
