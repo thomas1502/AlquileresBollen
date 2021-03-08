@@ -133,6 +133,17 @@ namespace AlquileresBollen
             }
             return 0;
         }
+        private int busqueda3()
+        {
+            for (int x = 0; x < alquileres.Count; x++)
+            {
+                if (alquileres[x].Placa.Contains(txtPlaca.Text))
+                {
+                    return 1;
+                }
+            }
+            return 0;
+        }
         private void Limpiar()
         {
             txtNit.Clear();
@@ -150,8 +161,8 @@ namespace AlquileresBollen
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            int bandera; int bandera2;
-            bandera = busqueda(); bandera2 = busqueda2();
+            int bandera; int bandera2; int bandera3;
+            bandera = busqueda(); bandera2 = busqueda2(); bandera3 = busqueda3();
             if (bandera == 0)
             {
                 // Almacenar al cliente
@@ -163,35 +174,38 @@ namespace AlquileresBollen
                 clientes.Add(clientesTemp);
                 GuardarClientes();
             }
-            else
-                MessageBox.Show("El cliente con este NIT no existe en la base de datos.");
             //
             if(bandera2 == 1)
             {
-                // Buscar los datos del vehículo
-                Vehiculo b = vehiculos.Find(p => p.Placa == txtPlaca.Text);
-                // Almacenar los datos del Alquiler
-                Alquiler alquilerTemp = new Alquiler();
-                alquilerTemp.Nit = txtNit.Text;
-                alquilerTemp.Nombre = txtNombre.Text;
-                alquilerTemp.Direccion = txtDireccion.Text;
-                alquilerTemp.Placa = b.Placa;
-                alquilerTemp.Marca = b.Marca;
-                alquilerTemp.Modelo = b.Modelo;
-                alquilerTemp.Color = b.Color;
-                alquilerTemp.PrecioKilometro = b.PrecioKilometros;
-                alquilerTemp.FechaAlquiler = mcFechaAlquiler.SelectionStart;
-                alquilerTemp.FechaDevolucion = mcFechaDevolucion.SelectionStart;
-                alquilerTemp.KilometrosRecorridos = float.Parse(txtKmRecorridos.Text);
-                alquilerTemp.TotalPagar = (b.PrecioKilometros) * (float.Parse(txtKmRecorridos.Text));
-                
-                alquileres.Add(alquilerTemp);
-                GuardarAlquileres();
-                Limpiar();
-                MessageBox.Show("Alquiler realizado con exito.");
+                if(bandera3 == 0)
+                {
+                    // Buscar los datos del vehículo
+                    Vehiculo b = vehiculos.Find(p => p.Placa == txtPlaca.Text);
+                    // Almacenar los datos del Alquiler
+                    Alquiler alquilerTemp = new Alquiler();
+                    alquilerTemp.Nit = txtNit.Text;
+                    alquilerTemp.Nombre = txtNombre.Text;
+                    alquilerTemp.Direccion = txtDireccion.Text;
+                    alquilerTemp.Placa = b.Placa;
+                    alquilerTemp.Marca = b.Marca;
+                    alquilerTemp.Modelo = b.Modelo;
+                    alquilerTemp.Color = b.Color;
+                    alquilerTemp.PrecioKilometro = b.PrecioKilometros;
+                    alquilerTemp.FechaAlquiler = mcFechaAlquiler.SelectionStart;
+                    alquilerTemp.FechaDevolucion = mcFechaDevolucion.SelectionStart;
+                    alquilerTemp.KilometrosRecorridos = float.Parse(txtKmRecorridos.Text);
+                    alquilerTemp.TotalPagar = (b.PrecioKilometros) * (float.Parse(txtKmRecorridos.Text));
+
+                    alquileres.Add(alquilerTemp);
+                    GuardarAlquileres();
+                    Limpiar();
+                    MessageBox.Show("Alquiler realizado con exito.");
+                }
+                else
+                    MessageBox.Show("Este vehículo ya esta en alquiler.");
             }
             else
-                MessageBox.Show("La Placa ingresada no existe en la base de datos.");              
+                MessageBox.Show("La Placa ingresada no existe en la base de datos.");               
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -199,6 +213,33 @@ namespace AlquileresBollen
             LeerCliente();
             LeerVehiculo();
             LeerAlquiler();
+            txtNombre.Enabled = false;
+            txtDireccion.Enabled = false;
+        }
+
+        private void txtNit_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnComprobar_Click(object sender, EventArgs e)
+        {
+            // Limpiar los campos
+            txtNombre.Clear();
+            txtDireccion.Clear();
+            // Comprobar
+            int bandera; bandera = busqueda();
+            if (bandera == 0)
+            {
+                txtNombre.Enabled = true;
+                txtDireccion.Enabled = true;
+            }
+            else
+            {
+                Cliente b = clientes.Find(p => p.Nit == txtNit.Text);
+                txtNombre.Text = b.Nombre;
+                txtDireccion.Text = b.Direccion;
+            }
         }
     }
 }

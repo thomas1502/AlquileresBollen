@@ -95,7 +95,7 @@ namespace AlquileresBollen
             // Ordenamos ascendetemente la lista
             alquileres = alquileres.OrderByDescending(p => p.KilometrosRecorridos).ToList();
             // Extraemos el valor más alto
-            label3.Text = (alquileres[0].KilometrosRecorridos).ToString();
+            label5.Text = (alquileres[0].KilometrosRecorridos).ToString();
         }
         public Form4()
         {

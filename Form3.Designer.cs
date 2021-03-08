@@ -45,6 +45,7 @@ namespace AlquileresBollen
             this.label8 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.btnComprobar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mcFechaDevolucion
@@ -125,6 +126,7 @@ namespace AlquileresBollen
             this.txtNit.Name = "txtNit";
             this.txtNit.Size = new System.Drawing.Size(198, 26);
             this.txtNit.TabIndex = 32;
+            this.txtNit.TextChanged += new System.EventHandler(this.txtNit_TextChanged);
             // 
             // label2
             // 
@@ -179,11 +181,22 @@ namespace AlquileresBollen
             this.txtDireccion.Size = new System.Drawing.Size(351, 26);
             this.txtDireccion.TabIndex = 45;
             // 
+            // btnComprobar
+            // 
+            this.btnComprobar.Location = new System.Drawing.Point(354, 94);
+            this.btnComprobar.Name = "btnComprobar";
+            this.btnComprobar.Size = new System.Drawing.Size(131, 35);
+            this.btnComprobar.TabIndex = 46;
+            this.btnComprobar.Text = "Comprobar";
+            this.btnComprobar.UseVisualStyleBackColor = true;
+            this.btnComprobar.Click += new System.EventHandler(this.btnComprobar_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 665);
+            this.Controls.Add(this.btnComprobar);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label8);
@@ -226,5 +239,6 @@ namespace AlquileresBollen
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.Button btnComprobar;
     }
 }
