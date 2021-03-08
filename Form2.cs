@@ -93,6 +93,7 @@ namespace AlquileresBollen
                     File.Delete("Vehiculos.txt");
                     this.GuardarVehiculo();
                     this.Limpiar();
+                    MessageBox.Show("Alquiler realizado con exito.");
                 }
                 else
                     MessageBox.Show("Esta placa no es valida, ya fue registrada.");
@@ -110,6 +111,7 @@ namespace AlquileresBollen
                 this.GuardarVehiculo();
                 File.Delete("Vehiculos.txt");
                 this.Limpiar();
+                MessageBox.Show("Alquiler realizado con exito.");
             }
         }
 
