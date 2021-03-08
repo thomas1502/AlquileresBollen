@@ -12,7 +12,7 @@ namespace AlquileresBollen
         // Funciones propias
         private void GuardarVehiculo()
         {
-            FileStream stream = new FileStream("Vehiculos.txt", FileMode.OpenOrCreate, FileAccess.Write);
+            FileStream stream = new FileStream("Vehiculos.txt", FileMode.Append, FileAccess.Write);
             StreamWriter writer = new StreamWriter(stream);
 
             foreach (var p in vehiculos)
@@ -108,16 +108,18 @@ namespace AlquileresBollen
                 vehiculoTemp.Color = txtColor.Text;
                 vehiculoTemp.PrecioKilometros = float.Parse(txtPrecio.Text);
                 vehiculos.Add(vehiculoTemp);
-                this.GuardarVehiculo();
                 File.Delete("Vehiculos.txt");
+                this.GuardarVehiculo();              
                 this.Limpiar();
                 MessageBox.Show("Alquiler realizado con exito.");
+                LeerVehiculo();
             }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            LeerVehiculo();
+            if(vehiculos.Count > 0)
+                LeerVehiculo();
         }
     }
 }

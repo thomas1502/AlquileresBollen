@@ -210,7 +210,8 @@ namespace AlquileresBollen
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            LeerCliente();
+            if(clientes.Count > 0)
+                LeerCliente();
             LeerVehiculo();
             LeerAlquiler();
             txtNombre.Enabled = false;
