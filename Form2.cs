@@ -28,21 +28,25 @@ namespace AlquileresBollen
         }
         private void LeerVehiculo()
         {
-            FileStream stream = new FileStream("Vehiculos.txt", FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(stream);
-
-            while (reader.Peek() > -1)
+            if (File.Exists("Vehiculos.txt"))
             {
-                Vehiculo vehiculoTemp = new Vehiculo();
-                vehiculoTemp.Placa = reader.ReadLine();
-                vehiculoTemp.Marca = reader.ReadLine();
-                vehiculoTemp.Modelo = Convert.ToInt32(reader.ReadLine());
-                vehiculoTemp.Color = reader.ReadLine();
-                vehiculoTemp.PrecioKilometros = float.Parse(reader.ReadLine());
+                FileStream stream = new FileStream("Vehiculos.txt", FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(stream);
 
-                vehiculos.Add(vehiculoTemp);
+                while (reader.Peek() > -1)
+                {
+                    Vehiculo vehiculoTemp = new Vehiculo();
+                    vehiculoTemp.Placa = reader.ReadLine();
+                    vehiculoTemp.Marca = reader.ReadLine();
+                    vehiculoTemp.Modelo = Convert.ToInt32(reader.ReadLine());
+                    vehiculoTemp.Color = reader.ReadLine();
+                    vehiculoTemp.PrecioKilometros = float.Parse(reader.ReadLine());
+
+                    vehiculos.Add(vehiculoTemp);
+                }
+                reader.Close();
             }
-            reader.Close();
+                
         }
         private void Limpiar()
         {
@@ -67,37 +71,10 @@ namespace AlquileresBollen
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            int tamaño = vehiculos.Count;
-            if(tamaño > 0)
-            {
-                string temporal = txtPlaca.Text; Boolean bandera = false;
-                for (int x = 0; x < vehiculos.Count; x++)
-                {
-                    if (vehiculos[x].Placa.Contains(temporal))
-                    {
-                        bandera = true;
-                        break;
-                    }
-                }
-                // En caso de ser un nuevo vehículo se almacena
-                if (!bandera)
-                {
-                    Vehiculo vehiculoTemp = new Vehiculo();
+            bool bandera = vehiculos.Exists(v => v.Placa == txtPlaca.Text);
 
-                    vehiculoTemp.Placa = txtPlaca.Text;
-                    vehiculoTemp.Marca = txtMarca.Text;
-                    vehiculoTemp.Modelo = Convert.ToInt32(txtModelo.Text);
-                    vehiculoTemp.Color = txtColor.Text;
-                    vehiculoTemp.PrecioKilometros = float.Parse(txtPrecio.Text);
-                    vehiculos.Add(vehiculoTemp);
-                    File.Delete("Vehiculos.txt");
-                    this.GuardarVehiculo();
-                    this.Limpiar();
-                    MessageBox.Show("Alquiler realizado con exito.");
-                }
-                else
-                    MessageBox.Show("Esta placa no es valida, ya fue registrada.");
-            }
+            if (bandera)
+                MessageBox.Show("Esta placa ya está registrada", "Atención");
             else
             {
                 Vehiculo vehiculoTemp = new Vehiculo();
@@ -107,19 +84,17 @@ namespace AlquileresBollen
                 vehiculoTemp.Modelo = Convert.ToInt32(txtModelo.Text);
                 vehiculoTemp.Color = txtColor.Text;
                 vehiculoTemp.PrecioKilometros = float.Parse(txtPrecio.Text);
+
                 vehiculos.Add(vehiculoTemp);
-                File.Delete("Vehiculos.txt");
-                this.GuardarVehiculo();              
-                this.Limpiar();
-                MessageBox.Show("Alquiler realizado con exito.");
-                LeerVehiculo();
+
+                GuardarVehiculo();
+                Limpiar();
             }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            if(vehiculos.Count > 0)
-                LeerVehiculo();
+            LeerVehiculo();
         }
     }
 }

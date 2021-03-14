@@ -12,74 +12,92 @@ namespace AlquileresBollen
         List<Vehiculo> vehiculos = new List<Vehiculo>();
         List<Cliente> clientes = new List<Cliente>();
         List<Alquiler> alquileres = new List<Alquiler>();
+        List<Reporte> reportes = new List<Reporte>();
         // Funciones propias
         private void LeerClientes()
         {
-            FileStream stream = new FileStream("Clientes.txt", FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(stream);
-
-            while (reader.Peek() > -1)
+            if(File.Exists("Clientes.txt"))
             {
-                Cliente clienteTemp = new Cliente();
+                FileStream stream = new FileStream("Clientes.txt", FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(stream);
 
-                clienteTemp.Nit = reader.ReadLine();
-                clienteTemp.Nombre = reader.ReadLine();
-                clienteTemp.Direccion = reader.ReadLine();
+                while (reader.Peek() > -1)
+                {
+                    Cliente clienteTemp = new Cliente();
 
-                clientes.Add(clienteTemp);
+                    clienteTemp.Nit = reader.ReadLine();
+                    clienteTemp.Nombre = reader.ReadLine();
+                    clienteTemp.Direccion = reader.ReadLine();
+
+                    clientes.Add(clienteTemp);
+                }
+                reader.Close();
             }
-            reader.Close();
         }
         private void LeerVehiculos()
         {
-            FileStream stream = new FileStream("Vehiculos.txt", FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(stream);
-
-            while (reader.Peek() > -1)
+            if(File.Exists("Vehiculos.txt"))
             {
-                Vehiculo vehiculoTemp = new Vehiculo();
-                vehiculoTemp.Placa = reader.ReadLine();
-                vehiculoTemp.Marca = reader.ReadLine();
-                vehiculoTemp.Modelo = Convert.ToInt32(reader.ReadLine());
-                vehiculoTemp.Color = reader.ReadLine();
-                vehiculoTemp.PrecioKilometros = float.Parse(reader.ReadLine());
+                FileStream stream = new FileStream("Vehiculos.txt", FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(stream);
 
-                vehiculos.Add(vehiculoTemp);
+                while (reader.Peek() > -1)
+                {
+                    Vehiculo vehiculoTemp = new Vehiculo();
+                    vehiculoTemp.Placa = reader.ReadLine();
+                    vehiculoTemp.Marca = reader.ReadLine();
+                    vehiculoTemp.Modelo = Convert.ToInt32(reader.ReadLine());
+                    vehiculoTemp.Color = reader.ReadLine();
+                    vehiculoTemp.PrecioKilometros = float.Parse(reader.ReadLine());
+
+                    vehiculos.Add(vehiculoTemp);
+                }
+                reader.Close();
             }
-            reader.Close();
         }
         private void LeerAlquileres()
         {
-            FileStream stream = new FileStream("Alquileres.txt", FileMode.OpenOrCreate, FileAccess.Read);
-            StreamReader reader = new StreamReader(stream);
-
-            while (reader.Peek() > -1)
+            if(File.Exists("Alquileres.txt"))
             {
-                Alquiler alquilerTemp = new Alquiler();
-                alquilerTemp.Nit = reader.ReadLine();
-                alquilerTemp.Nombre = reader.ReadLine();
-                alquilerTemp.Direccion = reader.ReadLine();
-                alquilerTemp.Placa = reader.ReadLine();
-                alquilerTemp.Marca = reader.ReadLine();
-                alquilerTemp.Modelo = Convert.ToInt32(reader.ReadLine());
-                alquilerTemp.Color = reader.ReadLine();
-                alquilerTemp.PrecioKilometro = float.Parse(reader.ReadLine());
-                alquilerTemp.FechaAlquiler = Convert.ToDateTime(reader.ReadLine());
-                alquilerTemp.FechaDevolucion = Convert.ToDateTime(reader.ReadLine());
-                alquilerTemp.KilometrosRecorridos = float.Parse(reader.ReadLine());
-                alquilerTemp.TotalPagar = float.Parse(reader.ReadLine());
+                FileStream stream = new FileStream("Alquileres.txt", FileMode.OpenOrCreate, FileAccess.Read);
+                StreamReader reader = new StreamReader(stream);
 
-                alquileres.Add(alquilerTemp);
+                while (reader.Peek() > -1)
+                {
+                    Alquiler alquilerTemp = new Alquiler();
+                    alquilerTemp.Nit = reader.ReadLine();
+                    alquilerTemp.Placa = reader.ReadLine();
+                    alquilerTemp.FechaAlquiler = Convert.ToDateTime(reader.ReadLine());
+                    alquilerTemp.FechaDevolucion = Convert.ToDateTime(reader.ReadLine());
+                    alquilerTemp.KilometrosRecorridos = Convert.ToInt32(reader.ReadLine());
+
+                    alquileres.Add(alquilerTemp);
+                }
+                reader.Close();
             }
-            reader.Close();
+            
         }
         // Funcion para mostrar
         private void Cargar()
         {
-            LeerClientes();
-            LeerVehiculos();
-            LeerAlquileres();
-            // Mostramos los datos 
+            foreach (var alquiler in alquileres)
+            {
+                Cliente cliente = clientes.Find(c => c.Nit == alquiler.Nit);
+
+                Vehiculo vehiculo = vehiculos.Find(v => v.Placa == alquiler.Placa);
+
+                Reporte reporteTemp = new Reporte();
+                reporteTemp.Nombre = cliente.Nombre;
+                reporteTemp.Placa = vehiculo.Placa;
+                reporteTemp.Marca = vehiculo.Marca;
+                reporteTemp.Modelo = vehiculo.Modelo;
+                reporteTemp.Color = vehiculo.Color;
+                reporteTemp.FechaDevolucion = alquiler.FechaDevolucion;
+                reporteTemp.TotalPagar = vehiculo.PrecioKilometros * alquiler.KilometrosRecorridos;
+
+                reportes.Add(reporteTemp);
+            }
+            // Mostrar Datos en los Data GriedView
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = clientes;
             dataGridView1.Refresh();
@@ -91,11 +109,13 @@ namespace AlquileresBollen
             dataGridView3.DataSource = null;
             dataGridView3.DataSource = alquileres;
             dataGridView3.Refresh();
-            // Mostramos el alquiler con más km
-            // Ordenamos ascendetemente la lista
-            alquileres = alquileres.OrderByDescending(p => p.KilometrosRecorridos).ToList();
-            // Extraemos el valor más alto
-            label5.Text = (alquileres[0].KilometrosRecorridos).ToString();
+
+            dataGridView4.DataSource = null;
+            dataGridView4.DataSource = reportes;
+            dataGridView4.Refresh();
+
+            int mayor = alquileres.Max(a => a.KilometrosRecorridos);
+            label5.Text = mayor.ToString();
         }
         public Form4()
         {
@@ -104,6 +124,9 @@ namespace AlquileresBollen
 
         private void Form4_Load(object sender, EventArgs e)
         {
+            LeerVehiculos();
+            LeerClientes();
+            LeerAlquileres();
             Cargar();
         }
 

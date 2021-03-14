@@ -38,9 +38,12 @@ namespace AlquileresBollen
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +89,7 @@ namespace AlquileresBollen
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 546);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 30);
+            this.label3.Size = new System.Drawing.Size(82, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "Alquileres:";
             // 
@@ -103,24 +106,24 @@ namespace AlquileresBollen
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 838);
+            this.label4.Location = new System.Drawing.Point(21, 1105);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(305, 30);
+            this.label4.Size = new System.Drawing.Size(203, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Alquiler con más recorridos:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(246, 838);
+            this.label5.Location = new System.Drawing.Point(255, 1105);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 30);
+            this.label5.Size = new System.Drawing.Size(18, 20);
             this.label5.TabIndex = 7;
             this.label5.Text = "0";
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(848, 831);
+            this.btnActualizar.Location = new System.Drawing.Point(848, 1097);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(180, 37);
             this.btnActualizar.TabIndex = 8;
@@ -128,11 +131,32 @@ namespace AlquileresBollen
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
+            // dataGridView4
+            // 
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Location = new System.Drawing.Point(16, 860);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersWidth = 62;
+            this.dataGridView4.RowTemplate.Height = 28;
+            this.dataGridView4.Size = new System.Drawing.Size(1012, 218);
+            this.dataGridView4.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 826);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(192, 30);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Reporte general:";
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1057, 884);
+            this.ClientSize = new System.Drawing.Size(1057, 1152);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.dataGridView4);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -148,6 +172,7 @@ namespace AlquileresBollen
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +189,7 @@ namespace AlquileresBollen
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.Label label6;
     }
 }
